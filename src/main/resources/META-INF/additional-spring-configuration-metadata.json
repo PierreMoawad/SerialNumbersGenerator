@@ -1,0 +1,119 @@
+{
+  "properties": [
+    {
+      "name": "downloads.path",
+      "type": "java.lang.String",
+      "description": "Where the created CSV files that are requested for download are stored."
+    },
+    {
+      "name": "settings.ui.length",
+      "type": "java.lang.Integer",
+      "description": "UI Setting: Default value for the length of the generated serial number."
+    },
+    {
+      "name": "settings.ui.numeric",
+      "type": "java.lang.Boolean",
+      "description": "UI Setting: True if numbers are used for generating serial number."
+    },
+    {
+      "name": "settings.ui.uppercase",
+      "type": "java.lang.Boolean",
+      "description": "UI Setting: True if uppercase letters are used for generating serial number."
+    },
+    {
+      "name": "settings.ui.lowercase",
+      "type": "java.lang.Boolean",
+      "description": "UI Setting: True if lowercase letters are used for generating serial number."
+    },
+    {
+      "name": "settings.ui.excluded-chars",
+      "type": "java.lang.String",
+      "description": "UI Setting: Characters that should not be used for generating serial number."
+    },
+    {
+      "name": "settings.ui.selected-chars",
+      "type": "java.lang.String",
+      "description": "UI Setting: Characters that are used for generating serial number."
+    },
+    {
+      "name": "settings.ui.min-quantity",
+      "type": "java.lang.Integer",
+      "description": "UI Setting: Minimum allowed serial numbers set size."
+    },
+    {
+      "name": "settings.ui.max-quantity",
+      "type": "java.lang.Integer",
+      "description": "UI Setting: Maximum allowed serial numbers set size."
+    },
+    {
+      "name": "settings.ui.default-length",
+      "type": "java.lang.Integer",
+      "description": "UI Setting: Default value for the length of the generated serial number."
+    },
+    {
+      "name": "settings.ui.min-length",
+      "type": "java.lang.Integer",
+      "description": "UI Setting: Minimum allowed length of the generated serial number."
+    },
+    {
+      "name": "settings.ui.max-length",
+      "type": "java.lang.Integer",
+      "description": "UI Setting: Maximum allowed length of the generated serial number."
+    },
+    {
+      "name": "settings.api.length",
+      "type": "java.lang.Integer",
+      "description": "API Setting: Length of the generated serial number."
+    },
+    {
+      "name": "settings.api.numeric",
+      "type": "java.lang.Boolean",
+      "description": "API Setting: True if numbers are used for generating serial number."
+    },
+    {
+      "name": "settings.api.uppercase",
+      "type": "java.lang.Boolean",
+      "description": "API Setting: True if uppercase letters are used for generating serial number."
+    },
+    {
+      "name": "settings.api.lowercase",
+      "type": "java.lang.Boolean",
+      "description": "API Setting: True if lowercase letters are used for generating serial number."
+    },
+    {
+      "name": "settings.api.excluded-chars",
+      "type": "java.lang.String",
+      "description": "API Setting: Characters that should not be used for generating serial number."
+    },
+    {
+      "name": "settings.api.selected-chars",
+      "type": "java.lang.String",
+      "description": "API Setting: Characters that are used for generating serial number."
+    },
+    {
+      "name": "settings.api.min-quantity",
+      "type": "java.lang.Integer",
+      "description": "API Setting: Minimum allowed serial numbers set size."
+    },
+    {
+      "name": "settings.api.max-quantity",
+      "type": "java.lang.Integer",
+      "description": "API Setting: Maximum allowed serial numbers set size."
+    },
+    {
+      "name": "settings.api.default-length",
+      "type": "java.lang.Integer",
+      "description": "API Setting: Default value for the length of the generated serial number."
+    },
+    {
+      "name": "settings.api.min-length",
+      "type": "java.lang.Integer",
+      "description": "API Setting: Minimum allowed length of the generated serial number."
+    },
+    {
+      "name": "settings.api.max-length",
+      "type": "java.lang.Integer",
+      "description": "API Setting: Maximum allowed length of the generated serial number."
+    }
+  ]
+}
