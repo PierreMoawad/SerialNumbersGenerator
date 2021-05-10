@@ -18,7 +18,7 @@ public class SerialNumberForm extends HorizontalLayout {
         serialNumberConfiguration = new SerialNumberConfiguration();
         setView = new SetView();
 
-        add(setConfiguration, serialNumberConfiguration, setView);
+        add(setConfiguration, new Divider(), serialNumberConfiguration, setView);
 
         setWidth("1200px");
     }

@@ -17,9 +17,9 @@ import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.StreamResource;
+import com.vaadin.flow.theme.lumo.Lumo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -33,11 +33,11 @@ import java.util.concurrent.Future;
 @Route("")
 @PageTitle("Serial Numbers Generator")
 @CssImport("./views/serialnumbersgenerator/serial-numbers-generator-view.css")
-@EnableConfigurationProperties(HomeView.class)
 public class HomeView extends VerticalLayout {
 
     private final SerialNumberForm serialNumberForm;
     private final Binder<Settings> binder;
+    private final MainService service;
     private final Settings uiSettings;
 
     public HomeView(MainService service, Settings uiSettings) {
@@ -45,6 +45,7 @@ public class HomeView extends VerticalLayout {
         addClassName("serial-numbers-generator-view");
 
         this.uiSettings = uiSettings;
+        this.service = service;
         Set<SerialNumbersSet> serialNumbersSets = service.getSerialNumbersSets();
         serialNumberForm = new SerialNumberForm();
         binder = new Binder<>(Settings.class);
@@ -52,17 +53,19 @@ public class HomeView extends VerticalLayout {
         serialNumberForm.getSetView().getSerialNumbersSetGrid().setItems(serialNumbersSets);
         serialNumberForm.getSetView().getSerialNumbersSetGrid().getDataProvider().refreshAll();
 
-        setCreateButtonListener(service, serialNumbersSets);
-        setGridSelectionListener(service);
-        setDeleteButtonListener(service, serialNumbersSets);
+        setCreateButtonListener(serialNumbersSets);
+        setGridSelectionListener();
+        setDeleteButtonListener(serialNumbersSets);
         bindConfigComponents();
         constrainConfigComponents();
         initializeCharPoolCheckBoxes();
 
         add(new H2("Serial Numbers Generator"), new Hr(), serialNumberForm);
+
+        getElement().setAttribute("theme", Lumo.DARK);
     }
 
-    void setCreateButtonListener(MainService service, Set<SerialNumbersSet> serialNumbersSets) {
+    void setCreateButtonListener(Set<SerialNumbersSet> serialNumbersSets) {
 
         serialNumberForm.getSetConfiguration().getCreate().addClickListener(e -> {
 
@@ -90,15 +93,14 @@ public class HomeView extends VerticalLayout {
                        try {
 
                            serialNumbersSets.add(setFuture.get());
+                           serialNumberForm.getSetView().getSerialNumbersSetGrid().getDataProvider().refreshAll();
+                           Notification.show("Serial Numbers Set " + name.getValue() + " Successfully Created");
 
                        } catch (InterruptedException | ExecutionException exception) {
 
-                           exception.printStackTrace();
+                           Notification.show("Error Creating Serial Numbers Set");
+                           log.error(exception.getMessage());
                        }
-
-                       serialNumberForm.getSetView().getSerialNumbersSetGrid().getDataProvider().refreshAll();
-
-                       Notification.show("Serial Numbers Set " + name.getValue() + " Successfully Created");
 
                    } else {
 
@@ -117,7 +119,7 @@ public class HomeView extends VerticalLayout {
         });
     }
 
-    void setGridSelectionListener(MainService service) {
+    void setGridSelectionListener() {
 
         serialNumberForm.getSetView().getSerialNumbersSetGrid().getSelectionModel().addSelectionListener(e -> {
 
@@ -128,7 +130,7 @@ public class HomeView extends VerticalLayout {
 
                 String name = selectedSerialNumbersSet.get().getName();
 
-                StreamResource resource = getStreamResource(name, service);
+                StreamResource resource = getStreamResource(name);
 
                 serialNumberForm.getSetView().getSetButtons().getDownload().setEnabled(true);
                 serialNumberForm.getSetView().getSetButtons().getDownload().setHref(resource);
@@ -140,7 +142,7 @@ public class HomeView extends VerticalLayout {
         });
     }
 
-    StreamResource getStreamResource(String name, MainService service) {
+    StreamResource getStreamResource(String name) {
 
         try {
 
@@ -164,12 +166,11 @@ public class HomeView extends VerticalLayout {
 
             log.error(exception.getMessage());
             Notification.show("Error Downloading the Selected Set");
+            return null;
         }
-
-        return null;
     }
 
-    void setDeleteButtonListener(MainService service, Set<SerialNumbersSet> serialNumbersSets) {
+    void setDeleteButtonListener(Set<SerialNumbersSet> serialNumbersSets) {
 
         serialNumberForm.getSetView().getSetButtons().getDelete().addClickListener(e -> {
 

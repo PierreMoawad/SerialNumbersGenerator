@@ -1,8 +1,6 @@
 package com.pierre.serialnumbersgenerator.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -65,7 +63,7 @@ public class SerialNumbersSet {
 
     public void removeSerialNumber(SerialNumber serialNumber) {
 
-        if (serialNumbers.contains(serialNumber))
+        if (!serialNumbers.contains(serialNumber))
             return;
 
         serialNumbers.remove(serialNumber);

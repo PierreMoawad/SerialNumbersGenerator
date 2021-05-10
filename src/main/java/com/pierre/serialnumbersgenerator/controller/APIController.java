@@ -8,6 +8,7 @@ import com.pierre.serialnumbersgenerator.model.SerialNumbersSet;
 import com.pierre.serialnumbersgenerator.model.Settings;
 import com.pierre.serialnumbersgenerator.service.MainService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -20,6 +21,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.concurrent.Future;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/API")
@@ -41,15 +43,21 @@ public class APIController {
     @ResponseBody
     @PutMapping("/{name}")
     public ResponseEntity<String> requestSerialNumbersSet(@PathVariable("name") String name,
-                                                          @RequestParam("quantity") Integer quantity) {
+                                                          @RequestParam("quantity") Integer quantity) throws Throwable {
 
         if (!service.doesNameExist(name)) {
 
             if (quantity >= apiSettings.getMinQuantity() && quantity <= apiSettings.getMaxQuantity()) {
 
-                setFuture = service.generateSerialNumbersSet(apiSettings, name, quantity);
+                try {
 
-                return ResponseEntity.ok(String.format(SUCCESS_MESSAGE, name, name));
+                    setFuture = service.generateSerialNumbersSet(apiSettings, name, quantity);
+                    return ResponseEntity.ok(String.format(SUCCESS_MESSAGE, name, name));
+
+                } catch (Exception e) {
+
+                    throw e.getCause();
+                }
 
             } else {
 

@@ -1,3 +1,13 @@
 .serial-numbers-generator-view {
-  display: block;
+    display: block;
+}
+
+.divider {
+    background-color: var(--lumo-contrast-20pct);
+    flex: 0 0 1px;
+    align-self: stretch;
+}
+
+html {
+    background-color: #233348;
 }

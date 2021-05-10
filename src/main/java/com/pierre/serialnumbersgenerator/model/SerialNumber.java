@@ -1,9 +1,6 @@
 package com.pierre.serialnumbersgenerator.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.domain.Persistable;
 import org.springframework.lang.Nullable;
 
@@ -17,10 +14,6 @@ import java.util.Objects;
 @NoArgsConstructor
 @Table(name = "serial_number")
 public class SerialNumber implements Persistable<String> {
-
-    private static final String NUMBERS = "0123456789";
-    private static final String UPPERCASE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static final String LOWERCASE_CHARS = "abcdefghijklmnopqrstuvwxyz";
 
     @Id
     private String number;

@@ -128,7 +128,7 @@ public class MainService {
 
                 for (String character : splitChars) {
 
-                    if (character.length() > 1  || !settings.getSelectedChars().contains(character)) {
+                    if (character.length() > 1 || !settings.getSelectedChars().contains(character)) {
 
                         return false;
                     }
@@ -136,11 +136,9 @@ public class MainService {
             }
 
             return true;
-
-        } else {
-
-            return false;
         }
+
+        return false;
     }
 
     public boolean doesNameExist(String name) {
